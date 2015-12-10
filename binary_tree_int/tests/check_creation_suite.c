@@ -10,9 +10,18 @@
 START_TEST(creation_success)
 {
     bt_node_int_t *tree;
+    bt_node_int_err_t ret;
+
     tree = bt_int_create(5);
+
     fail_if(NULL == tree);
-    bt_int_destroy(tree);
+    fail_if(5 != bt_int_get_value(tree));
+    fail_if(NULL != bt_int_get_left(tree));
+    fail_if(NULL != bt_int_get_right(tree));
+
+    ret = bt_int_destroy(tree);
+    fail_if(BT_INT_SUCCESS != ret);
+
     tree = NULL;
     fail_if(NULL != tree);
 }
@@ -30,5 +39,4 @@ creation_suite(void)
     suite_add_tcase(s, tc);
 
     return s;
-
 };

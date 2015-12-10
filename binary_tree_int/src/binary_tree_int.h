@@ -20,17 +20,26 @@ typedef struct bt_node_int bt_node_int_t;
 
 typedef int bt_node_int_err_t;
 
-bt_node_int_t * 
+bt_node_int_t *
 bt_int_create(int value);
 
-bt_node_int_err_t 
+bt_node_int_err_t
 bt_int_destroy(bt_node_int_t *root);
 
-bt_node_int_err_t 
+bt_node_int_err_t
 bt_int_insert(bt_node_int_t *root, int value);
-	
-bt_node_int_err_t 
+
+bt_node_int_err_t
 bt_int_sprintf(bt_node_int_t *root, bt_int_order_type_t type, char *buf, size_t buf_size);
+
+int
+bt_int_get_value(bt_node_int_t *root);
+
+bt_node_int_t *
+bt_int_get_left(bt_node_int_t *root);
+
+bt_node_int_t *
+bt_int_get_right(bt_node_int_t *root);
 
 int
 bt_int_get_height(bt_node_int_t *root);
