@@ -7,23 +7,25 @@
 
 #include "check_suites.h"
 
+#define ROOT_VALUE (5)
+
 START_TEST(creation_success)
 {
     bt_node_int_t *tree;
     bt_node_int_err_t ret;
 
-    tree = bt_int_create(5);
+    tree = bt_int_create(ROOT_VALUE);
 
-    fail_if(NULL == tree);
-    fail_if(5 != bt_int_get_value(tree));
-    fail_if(NULL != bt_int_get_left(tree));
-    fail_if(NULL != bt_int_get_right(tree));
+    ck_assert_ptr_ne(NULL, tree);
+    ck_assert_int_eq(ROOT_VALUE, bt_int_get_value(tree));
+    ck_assert_ptr_eq(NULL, bt_int_get_left(tree));
+    ck_assert_ptr_eq(NULL, bt_int_get_right(tree));
 
     ret = bt_int_destroy(tree);
-    fail_if(BT_INT_SUCCESS != ret);
+    ck_assert_int_eq(BT_INT_SUCCESS, ret);
 
     tree = NULL;
-    fail_if(NULL != tree);
+    ck_assert_ptr_eq(NULL, tree);
 }
 END_TEST
 
