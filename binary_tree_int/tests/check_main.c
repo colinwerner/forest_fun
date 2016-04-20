@@ -13,6 +13,9 @@ struct suite {
 static struct suite suites[] =
 {
     {"creation", creation_suite},
+    {"height", height_suite},
+    {"insertion", insertion_suite},
+    {"sprintf", sprintf_suite},
 };
 
 const int SUITE_COUNT = (sizeof(suites)/(sizeof(suites[0])));

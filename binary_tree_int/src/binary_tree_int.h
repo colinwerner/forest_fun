@@ -30,7 +30,7 @@ bt_node_int_err_t
 bt_int_insert(bt_node_int_t *root, int value);
 
 bt_node_int_err_t
-bt_int_sprintf(bt_node_int_t *root, bt_int_order_type_t type, char *buf, size_t buf_size);
+bt_int_snprintf(bt_node_int_t *root, bt_int_order_type_t type, char *buf, size_t buf_size);
 
 int
 bt_int_get_value(bt_node_int_t *root);
