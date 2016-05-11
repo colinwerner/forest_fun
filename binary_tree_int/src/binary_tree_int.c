@@ -139,29 +139,38 @@ __print_inorder(bt_node_int_t *root, char *buf, size_t buf_size,
 }
 
 static bt_node_int_err_t
-print_inorder(bt_node_int_t *root, char *buf, size_t buf_size)
-{
-    size_t printed = 0;
-    return __print_inorder(root, buf, buf_size, &printed);
-}
-static bt_node_int_err_t
-print_postorder(bt_node_int_t *root, char *buf, size_t buf_size,
-                size_t printed)
+__print_postorder(bt_node_int_t *root, char *buf, size_t buf_size,
+                size_t *printed)
 {
     bt_node_int_err_t ret;
     ret = BT_INT_ERROR;
     if (NULL != root) {
-        print_postorder(root->left, buf, buf_size, printed);
-        print_postorder(root->right, buf, buf_size, printed);
-        printed += snprintf(buf + printed, buf_size - printed, "%d ",
+        __print_postorder(root->left, buf, buf_size, printed);
+        __print_postorder(root->right, buf, buf_size, printed);
+        *printed += snprintf(buf + *printed, buf_size - *printed, "%d ",
             root->value
         );
-        if (printed < buf_size) {
+        if (*printed < buf_size) {
             ret = BT_INT_SUCCESS;
         }
     }
 
     return ret;
+}
+
+
+static bt_node_int_err_t
+print_inorder(bt_node_int_t *root, char *buf, size_t buf_size)
+{
+    size_t printed = 0;
+    return __print_inorder(root, buf, buf_size, &printed);
+}
+
+static bt_node_int_err_t
+print_postorder(bt_node_int_t *root, char *buf, size_t buf_size)
+{
+    size_t printed = 0;
+    return __print_postorder(root, buf, buf_size, &printed);
 }
 
 bt_node_int_err_t
@@ -178,7 +187,7 @@ bt_int_snprintf(bt_node_int_t *root, bt_int_order_type_t type, char *buf, size_t
 	    break;
 
 	    case BT_INT_POSTORDER:
-	        ret = print_postorder(root, buf, buf_size, 0);
+	        ret = print_postorder(root, buf, buf_size);
 	    break;
 
 	    case BT_INT_LEVEL_ORDER:
